@@ -39,21 +39,70 @@ def weather_info(request):
         city = request.POST['city']
         state = request.POST['state']
         country = request.POST['country']
+    elif request.method == 'GET':
+        firstname = request.GET.get('firstname')
+        lastname = request.GET.get('lastname')
+        city = request.GET.get('city')
+        state = request.GET.get('state')
+        country = request.GET.get('country')
         
         # Construct the URL for the weather API
-        url = f"https://www.google.com/search?q={city}+{state}+{country}+weather"
+    url = f"https://www.google.com/search?q={city}+{state}+{country}+weather"
+    
+    # Use Selenium and BS4 to fetch the weather information
+    # driver_options = webdriver.ChromeOptions()
+    # driver_options.add_argument('--headless')
+    driver = webdriver.Chrome()
+
+    driver.get(url)
+    # Wait for page to load
+    time.sleep(30)
+
+    html = driver.page_source
+
+    soup = BeautifulSoup(html, 'lxml')
+    driver.quit()
+    temperature_f = soup.find('span', {'id': 'wob_tm'}).text
+    temperature_c = soup.find('span', {'id': 'wob_ttm'}).text
+    precipitation = soup.find('span', {'id': 'wob_pp'}).text
+    humidity = soup.find('span', {'id': 'wob_hm'}).text
+    wind = soup.find('span', {'id': 'wob_ws'}).text
+
+    context = {
+        'firstname': firstname,
+        'lastname': lastname,
+        'city': city,
+        'state': state,
+        'country': country,
+        'temperature_f': temperature_f,
+        'temperature_c': temperature_c,
+        'precipitation': precipitation,
+        'humidity': humidity,
+        'wind_speed': wind
+    }
+
+    return render(request, 'weather_info.html', context)
+
+def colorado_springs(request):
+    if request.method == 'GET':
+        firstname = request.GET.get('firstname')
+        lastname = request.GET.get('lastname')
+        city = request.GET.get('city')
+        state = request.GET.get('state')
+        country = request.GET.get('country')
+
+        # Construct the URL for the weather API
+        url = f"https://www.google.com/search?q=Colorado+Springs+Colorado+USA+weather"
         
         # Use Selenium and BS4 to fetch the weather information
-        # driver_options = webdriver.ChromeOptions()
-        # driver_options.add_argument('--headless')
         driver = webdriver.Chrome()
-
         driver.get(url)
         # Wait for page to load
         time.sleep(30)
 
         html = driver.page_source
 
+        # Find all information regarding Colorado Springs
         soup = BeautifulSoup(html, 'lxml')
         driver.quit()
         temperature_f = soup.find('span', {'id': 'wob_tm'}).text
@@ -65,9 +114,12 @@ def weather_info(request):
         context = {
             'firstname': firstname,
             'lastname': lastname,
-            'city': city,
-            'state': state,
-            'country': country,
+            'home_city': city,
+            'home_state': state,
+            'home_country': country,
+            'city': 'Colorado Springs',
+            'state': 'Colorado',
+            'country': 'USA',
             'temperature_f': temperature_f,
             'temperature_c': temperature_c,
             'precipitation': precipitation,
@@ -75,4 +127,4 @@ def weather_info(request):
             'wind_speed': wind
         }
 
-    return render(request, 'weather_info.html', context)
+    return render(request, 'colorado_springs.html', context)

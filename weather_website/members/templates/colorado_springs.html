@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Welcome</title>
+    <title>User Form</title>
 </head>
 <body>
     <h1>Welcome {{ firstname }} {{ lastname }}</h1>
-    <p>For {{ city }}, {{ state }}, {{ country }}:</p>
+    <p>For Colorado Springs, Colorado, USA:</p>
     <ul>
         <li>Temperature °C: {{ temperature_c }}°C</li>
         <li>Temperature °F: {{ temperature_f }}°F</li>
@@ -13,7 +13,6 @@
         <li>Humidity: {{ humidity }}</li>
         <li>Wind Speed: {{ wind_speed }}</li>
     </ul>
-
-    <a href="/colorado_springs?firstname={{ firstname }}&lastname={{ lastname }}&city={{ city }}&state={{ state }}&country={{ country }}" class="btn btn-primary">Get Colorado Springs Weather</a>
+    <a href="/weather_info?firstname={{ firstname }}&lastname={{ lastname }}&city={{ home_city }}&state={{ home_state }}&country={{ home_country }}" class="btn btn-primary">Back to Weather Info</a>
 </body>
 </html>
