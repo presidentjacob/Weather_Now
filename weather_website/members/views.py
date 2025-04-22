@@ -44,13 +44,13 @@ def weather_info(request):
         url = f"https://www.google.com/search?q={city}+{state}+{country}+weather"
         
         # Use Selenium and BS4 to fetch the weather information
-        driver_options = webdriver.ChromeOptions()
-        driver_options.add_argument('--headless')
-        driver = webdriver.Chrome(options=driver_options)
+        # driver_options = webdriver.ChromeOptions()
+        # driver_options.add_argument('--headless')
+        driver = webdriver.Chrome()
 
         driver.get(url)
         # Wait for page to load
-        time.sleep(5)
+        time.sleep(30)
 
         html = driver.page_source
 
@@ -72,7 +72,7 @@ def weather_info(request):
             'temperature_c': temperature_c,
             'precipitation': precipitation,
             'humidity': humidity,
-            'wind': wind
+            'wind_speed': wind
         }
 
-    return render(request, 'weather_info.html')
+    return render(request, 'weather_info.html', context)
