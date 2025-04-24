@@ -9,6 +9,13 @@ from selenium import webdriver
 import time
 import lxml
 
+apikey = 'nzV0HFfFgr7MvrhbRJ1akgjgReTzuabu'
+
+headers = {
+    'accept': 'application/json',
+    'accept-encoding': 'deflate, gzip, br'
+}
+
 # Create your views here.
 def members(request):
     mymembers = Member.objects.all().values()
@@ -47,26 +54,20 @@ def weather_info(request):
         country = request.GET.get('country')
         
         # Construct the URL for the weather API
-    url = f"https://www.google.com/search?q={city}+{state}+{country}+weather"
-    
-    # Use Selenium and BS4 to fetch the weather information
-    # driver_options = webdriver.ChromeOptions()
-    # driver_options.add_argument('--headless')
-    driver = webdriver.Chrome()
+    url = f'https://api.tomorrow.io/v4/weather/forecast?location={city}%20{state}%20{country}&apikey={apikey}'
 
-    driver.get(url)
-    # Wait for page to load
-    time.sleep(30)
+    response = requests.get(url, headers=headers)
+    if response.status_code != 200:
+        return HttpResponse('Error fetching weather data. Please try again later.')
 
-    html = driver.page_source
+    data = response.json()
 
-    soup = BeautifulSoup(html, 'lxml')
-    driver.quit()
-    temperature_f = soup.find('span', {'id': 'wob_tm'}).text
-    temperature_c = soup.find('span', {'id': 'wob_ttm'}).text
-    precipitation = soup.find('span', {'id': 'wob_pp'}).text
-    humidity = soup.find('span', {'id': 'wob_hm'}).text
-    wind = soup.find('span', {'id': 'wob_ws'}).text
+    first_minute = data['timelines']['minutely'][0]['values']
+    temperature_c = first_minute['temperature']
+    temperature_f = (temperature_c * 9/5) + 32
+    precipitation = first_minute['precipitationProbability']
+    humidity = first_minute['humidity']
+    wind = first_minute['windSpeed']
 
     context = {
         'firstname': firstname,
@@ -92,24 +93,21 @@ def colorado_springs(request):
         country = request.GET.get('country')
 
         # Construct the URL for the weather API
-        url = f"https://www.google.com/search?q=Colorado+Springs+Colorado+USA+weather"
-        
-        # Use Selenium and BS4 to fetch the weather information
-        driver = webdriver.Chrome()
-        driver.get(url)
-        # Wait for page to load
-        time.sleep(30)
-
-        html = driver.page_source
+        url = f'https://api.tomorrow.io/v4/weather/forecast?location=Colorado%20Springs%20Colorado%20USA&apikey={apikey}'
 
         # Find all information regarding Colorado Springs
-        soup = BeautifulSoup(html, 'lxml')
-        driver.quit()
-        temperature_f = soup.find('span', {'id': 'wob_tm'}).text
-        temperature_c = soup.find('span', {'id': 'wob_ttm'}).text
-        precipitation = soup.find('span', {'id': 'wob_pp'}).text
-        humidity = soup.find('span', {'id': 'wob_hm'}).text
-        wind = soup.find('span', {'id': 'wob_ws'}).text
+        response = requests.get(url, headers=headers)
+        if response.status_code != 200:
+            return HttpResponse('Error fetching weather data. Please try again later.')
+
+        data = response.json()
+
+        first_minute = data['timelines']['minutely'][0]['values']
+        temperature_c = first_minute['temperature']
+        temperature_f = (temperature_c * 9/5) + 32
+        precipitation = first_minute['precipitationProbability']
+        humidity = first_minute['humidity']
+        wind = first_minute['windSpeed']
 
         context = {
             'firstname': firstname,
