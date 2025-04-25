@@ -298,3 +298,260 @@ def seattle(request):
         }
 
     return render(request, 'seattle.html', context)
+
+def alexandria_virginia(request):
+    if request.method == 'GET':
+        firstname = request.GET.get('firstname')
+        lastname = request.GET.get('lastname')
+        city = request.GET.get('city')
+        state = request.GET.get('state')
+        country = request.GET.get('country')
+
+        # Construct the URL for the weather API
+        url = f'https://api.tomorrow.io/v4/weather/forecast?location=Alexandria%20Virginia%20USA&apikey={apikey}'
+
+        response = requests.get(url, headers=headers)
+        if response.status_code != 200:
+            return HttpResponse('Error fetching weather data. Please try again later.')
+
+        data = response.json()
+
+        first_minute = data['timelines']['minutely'][0]['values']
+        temperature_c = first_minute['temperature']
+        temperature_f = (temperature_c * 9 / 5) + 32
+        precipitation = first_minute['precipitationProbability']
+        humidity = first_minute['humidity']
+        wind = first_minute['windSpeed']
+
+        context = {
+            'firstname': firstname,
+            'lastname': lastname,
+            'home_city': city,
+            'home_state': state,
+            'home_country': country,
+            'city': 'Alexandria',
+            'state': 'Virginia',
+            'country': 'USA',
+            'temperature_f': temperature_f,
+            'temperature_c': temperature_c,
+            'precipitation': precipitation,
+            'humidity': humidity,
+            'wind_speed': wind
+        }
+
+    return render(request, 'alexandria_virginia.html', context)
+
+
+def alexandria_ontario(request):
+    if request.method == 'GET':
+        firstname = request.GET.get('firstname')
+        lastname = request.GET.get('lastname')
+        city = request.GET.get('city')
+        state = request.GET.get('state')
+        country = request.GET.get('country')
+
+        # Construct the URL for the weather API
+        url = f'https://api.tomorrow.io/v4/weather/forecast?location=Alexandria%20Ontario%20Canada&apikey={apikey}'
+
+        response = requests.get(url, headers=headers)
+        if response.status_code != 200:
+            return HttpResponse('Error fetching weather data. Please try again later.')
+
+        data = response.json()
+
+        first_minute = data['timelines']['minutely'][0]['values']
+        temperature_c = first_minute['temperature']
+        temperature_f = (temperature_c * 9 / 5) + 32
+        precipitation = first_minute['precipitationProbability']
+        humidity = first_minute['humidity']
+        wind = first_minute['windSpeed']
+
+        context = {
+            'firstname': firstname,
+            'lastname': lastname,
+            'home_city': city,
+            'home_state': state,
+            'home_country': country,
+            'city': 'Alexandria',
+            'state': 'Ontario',
+            'country': 'Canada',
+            'temperature_f': temperature_f,
+            'temperature_c': temperature_c,
+            'precipitation': precipitation,
+            'humidity': humidity,
+            'wind_speed': wind
+        }
+
+    return render(request, 'alexandria_ontario.html', context)
+
+
+def melbourne_florida(request):
+    if request.method == 'GET':
+        firstname = request.GET.get('firstname')
+        lastname = request.GET.get('lastname')
+        city = request.GET.get('city')
+        state = request.GET.get('state')
+        country = request.GET.get('country')
+
+        # Construct the URL for the weather API
+        url = f'https://api.tomorrow.io/v4/weather/forecast?location=Melbourne%20Florida%20USA&apikey={apikey}'
+
+        response = requests.get(url, headers=headers)
+        if response.status_code != 200:
+            return HttpResponse('Error fetching weather data. Please try again later.')
+
+        data = response.json()
+
+        first_minute = data['timelines']['minutely'][0]['values']
+        temperature_c = first_minute['temperature']
+        temperature_f = (temperature_c * 9 / 5) + 32
+        precipitation = first_minute['precipitationProbability']
+        humidity = first_minute['humidity']
+        wind = first_minute['windSpeed']
+
+        context = {
+            'firstname': firstname,
+            'lastname': lastname,
+            'home_city': city,
+            'home_state': state,
+            'home_country': country,
+            'city': 'Melbourne',
+            'state': 'Florida',
+            'country': 'USA',
+            'temperature_f': temperature_f,
+            'temperature_c': temperature_c,
+            'precipitation': precipitation,
+            'humidity': humidity,
+            'wind_speed': wind
+        }
+
+    return render(request, 'melbourne_florida.html', context)
+
+
+def melbourne_victoria(request):
+    if request.method == 'GET':
+        firstname = request.GET.get('firstname')
+        lastname = request.GET.get('lastname')
+        city = request.GET.get('city')
+        state = request.GET.get('state')
+        country = request.GET.get('country')
+
+        # Construct the URL for the weather API
+        url = f'https://api.tomorrow.io/v4/weather/forecast?location=Melbourne%20Victoria%20Australia&apikey={apikey}'
+
+        response = requests.get(url, headers=headers)
+        if response.status_code != 200:
+            return HttpResponse('Error fetching weather data. Please try again later.')
+
+        data = response.json()
+
+        first_minute = data['timelines']['minutely'][0]['values']
+        temperature_c = first_minute['temperature']
+        temperature_f = (temperature_c * 9 / 5) + 32
+        precipitation = first_minute['precipitationProbability']
+        humidity = first_minute['humidity']
+        wind = first_minute['windSpeed']
+
+        context = {
+            'firstname': firstname,
+            'lastname': lastname,
+            'home_city': city,
+            'home_state': state,
+            'home_country': country,
+            'city': 'Melbourne',
+            'state': 'Victoria',
+            'country': 'Australia',
+            'temperature_f': temperature_f,
+            'temperature_c': temperature_c,
+            'precipitation': precipitation,
+            'humidity': humidity,
+            'wind_speed': wind
+        }
+
+    return render(request, 'melbourne_victoria.html', context)
+
+
+def venice_italy(request):
+    if request.method == 'GET':
+        firstname = request.GET.get('firstname')
+        lastname = request.GET.get('lastname')
+        city = request.GET.get('city')
+        state = request.GET.get('state')
+        country = request.GET.get('country')
+
+        # Construct the URL for the weather API
+        url = f'https://api.tomorrow.io/v4/weather/forecast?location=Venice%20Italy&apikey={apikey}'
+
+        response = requests.get(url, headers=headers)
+        if response.status_code != 200:
+            return HttpResponse('Error fetching weather data. Please try again later.')
+
+        data = response.json()
+
+        first_minute = data['timelines']['minutely'][0]['values']
+        temperature_c = first_minute['temperature']
+        temperature_f = (temperature_c * 9 / 5) + 32
+        precipitation = first_minute['precipitationProbability']
+        humidity = first_minute['humidity']
+        wind = first_minute['windSpeed']
+
+        context = {
+            'firstname': firstname,
+            'lastname': lastname,
+            'home_city': city,
+            'home_state': state,
+            'home_country': country,
+            'city': 'Venice',
+            'state': '',
+            'country': 'Italy',
+            'temperature_f': temperature_f,
+            'temperature_c': temperature_c,
+            'precipitation': precipitation,
+            'humidity': humidity,
+            'wind_speed': wind
+        }
+
+    return render(request, 'venice_italy.html', context)
+
+
+def mexico_city(request):
+    if request.method == 'GET':
+        firstname = request.GET.get('firstname')
+        lastname = request.GET.get('lastname')
+        city = request.GET.get('city')
+        state = request.GET.get('state')
+        country = request.GET.get('country')
+
+        # Construct the URL for the weather API
+        url = f'https://api.tomorrow.io/v4/weather/forecast?location=Mexico%20City%20Mexico&apikey={apikey}'
+
+        response = requests.get(url, headers=headers)
+        if response.status_code != 200:
+            return HttpResponse('Error fetching weather data. Please try again later.')
+
+        data = response.json()
+
+        first_minute = data['timelines']['minutely'][0]['values']
+        temperature_c = first_minute['temperature']
+        temperature_f = (temperature_c * 9 / 5) + 32
+        precipitation = first_minute['precipitationProbability']
+        humidity = first_minute['humidity']
+        wind = first_minute['windSpeed']
+
+        context = {
+            'firstname': firstname,
+            'lastname': lastname,
+            'home_city': city,
+            'home_state': state,
+            'home_country': country,
+            'city': 'Mexico City',
+            'state': '',
+            'country': 'Mexico',
+            'temperature_f': temperature_f,
+            'temperature_c': temperature_c,
+            'precipitation': precipitation,
+            'humidity': humidity,
+            'wind_speed': wind
+        }
+
+    return render(request, 'mexico_city.html', context)
