@@ -33,19 +33,23 @@ def details(request, id):
     }
     return HttpResponse(template.render(context, request))
 
+# Get the user form
 def user_form(request):
     if request.method == 'POST':
         return render(request, 'user_form.html')
     else:
         return render(request, 'user_form.html')
     
+# Get the weather information for the home page
 def weather_info(request):
+    # If the request is a POST, get the data from the form
     if request.method == 'POST':
         firstname = request.POST['firstname']
         lastname = request.POST['lastname']
         city = request.POST['city']
         state = request.POST['state']
         country = request.POST['country']
+    # If the request is a GET, get the data from the query parameters
     elif request.method == 'GET':
         firstname = request.GET.get('firstname')
         lastname = request.GET.get('lastname')
@@ -53,9 +57,10 @@ def weather_info(request):
         state = request.GET.get('state')
         country = request.GET.get('country')
         
-        # Construct the URL for the weather API
+    # Construct the URL for the weather API
     url = f'https://api.tomorrow.io/v4/weather/forecast?location={city}%20{state}%20{country}&apikey={apikey}'
 
+    # Find all information regarding the city
     response = requests.get(url, headers=headers)
     if response.status_code != 200:
         return HttpResponse('Error fetching weather data. Please try again later.')
@@ -69,6 +74,7 @@ def weather_info(request):
     humidity = first_minute['humidity']
     wind = first_minute['windSpeed']
 
+    # Prepare the context for rendering the template
     context = {
         'firstname': firstname,
         'lastname': lastname,
@@ -82,8 +88,10 @@ def weather_info(request):
         'wind_speed': wind
     }
 
+    # Render the template with the context
     return render(request, 'weather_info.html', context)
 
+# Get the weather information for specific cities using the method above
 def colorado_springs(request):
     if request.method == 'GET':
         firstname = request.GET.get('firstname')
