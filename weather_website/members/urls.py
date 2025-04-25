@@ -9,4 +9,5 @@ urlpatterns = [
     path('colorado_springs/', views.colorado_springs, name='colorado_springs'),
     path('denver/', views.denver, name='denver'),
     path('winter_park_colorado/', views.winter_park_colorado, name='winter_park_colorado'),
+    path('winter_park_florida/', views.winter_park_florida, name='winter_park_florida'),
 ]
