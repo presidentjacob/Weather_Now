@@ -255,3 +255,46 @@ def winter_park_florida(request):
         }
 
     return render(request, 'winter_park_florida.html', context)
+
+def seattle(request):
+    if request.method == 'GET':
+        firstname = request.GET.get('firstname')
+        lastname = request.GET.get('lastname')
+        city = request.GET.get('city')
+        state = request.GET.get('state')
+        country = request.GET.get('country')
+
+        # Construct the URL for the weather API
+        url = f'https://api.tomorrow.io/v4/weather/forecast?location=Seattle%20Washington%20USA&apikey={apikey}'
+
+        # Find all information regarding Colorado Springs
+        response = requests.get(url, headers=headers)
+        if response.status_code != 200:
+            return HttpResponse('Error fetching weather data. Please try again later.')
+
+        data = response.json()
+
+        first_minute = data['timelines']['minutely'][0]['values']
+        temperature_c = first_minute['temperature']
+        temperature_f = round((temperature_c * 9/5) + 32, 2)
+        precipitation = first_minute['precipitationProbability']
+        humidity = first_minute['humidity']
+        wind = first_minute['windSpeed']
+
+        context = {
+            'firstname': firstname,
+            'lastname': lastname,
+            'home_city': city,
+            'home_state': state,
+            'home_country': country,
+            'city': 'Winter Park',
+            'state': 'Florida',
+            'country': 'USA',
+            'temperature_f': temperature_f,
+            'temperature_c': temperature_c,
+            'precipitation': precipitation,
+            'humidity': humidity,
+            'wind_speed': wind
+        }
+
+    return render(request, 'seattle.html', context)
