@@ -7,4 +7,6 @@ urlpatterns = [
     path('user_form/', views.user_form, name='user_form'),
     path('weather_info/', views.weather_info, name='weather_info'),
     path('colorado_springs/', views.colorado_springs, name='colorado_springs'),
+    path('denver/', views.denver, name='denver'),
+    path('winter_park_colorado/', views.winter_park_colorado, name='winter_park_colorado'),
 ]

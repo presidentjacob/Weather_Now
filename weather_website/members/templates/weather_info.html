@@ -9,11 +9,13 @@
     <ul>
         <li>Temperature °C: {{ temperature_c }}°C</li>
         <li>Temperature °F: {{ temperature_f }}°F</li>
-        <li>Precipiration: {{ precipitation }}</li>
-        <li>Humidity: {{ humidity }}</li>
-        <li>Wind Speed: {{ wind_speed }}</li>
+        <li>Precipitation: {{ precipitation }} inches</li>
+        <li>Humidity: {{ humidity }}%</li>
+        <li>Wind Speed: {{ wind_speed }} mph</li>
     </ul>
 
     <a href="/colorado_springs?firstname={{ firstname }}&lastname={{ lastname }}&city={{ city }}&state={{ state }}&country={{ country }}" class="btn btn-primary">Get Colorado Springs Weather</a>
+    <p></p><a href="/denver?firstname={{ firstname }}&lastname={{ lastname }}&city={{ city }}&state={{ state }}&country={{ country }}" class="btn btn-primary">Get Denver Weather</a>
+    <p></p><a href="/winter_park_colorado?firstname={{ firstname }}&lastname={{ lastname }}&city={{ city }}&state={{ state }}&country={{ country }}" class="btn btn-primary">Get Winter Park Colorado Weather</a>
 </body>
 </html>
